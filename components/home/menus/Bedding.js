@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { useState } from "react";
-import { FaCaretDown, FaBed } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
+import { FaBed, FaPlus } from "react-icons/fa";
 
 const Bedding = () => {
   const sections = [
@@ -55,15 +55,43 @@ const Bedding = () => {
       ],
     },
   ];
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const handleToggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <div className="">
         <div className="inline-flex items-center text-black-300 hover:text-white hover:bg-black px-3 py-2 rounded-md text-sm font-medium group">
           <FaBed className="mr-1 text-xl" />
-          Bedding <FaCaretDown />
-          <div className="w-full absolute pb-6  z-50 top-full left-0 transform rounded-md justify-center items-center p-2 group-hover:flex hidden">
+          Bedding 
+          <button onClick={handleToggleDropdown} className="ml-2">
+            <FaPlus />
+          </button>
+          <div
+            ref={dropdownRef}
+            className={`w-full absolute pb-6 z-50 top-full left-0 transform rounded-md justify-center items-center p-2 ${
+              isDropdownOpen ? "flex" : "hidden"
+            } group-hover:flex`}
+          >
             <div className="max-w-screen-2xl mx-auto px-3 mb-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white">
-              {/* Map over sections array */}
               {sections.map((section) => (
                 <div
                   key={section.id}
@@ -86,18 +114,17 @@ const Bedding = () => {
                             className="overflow-ellipsis hover:scale-105"
                           >
                             {item.path ? (
-                            <Link href={item.path}>
-                              <span className="hover:underline">{item.name}</span>
-                            </Link>
-                          ) : (
-                            <span>{item.name}</span>
-                          )}
+                              <Link href={item.path}>
+                                <span className="hover:underline">{item.name}</span>
+                              </Link>
+                            ) : (
+                              <span>{item.name}</span>
+                            )}
                           </li>
                         ))}
                       </ul>
                     </div>
                   </div>
-                  {/* Popup Box */}
                   <div className="hidden absolute top-0 left-0 right-0 bottom-0 bg-white p-4 shadow-lg rounded-md opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <h2 className="text-lg font-bold mb-2">{section.title}</h2>
                     <ul>

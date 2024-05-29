@@ -1,18 +1,43 @@
 import Link from "next/link";
-import { useState } from "react";
-import { FaCaretDown, FaBath } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
+import { FaBath, FaPlus } from "react-icons/fa";
 
 const BathSupport = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const handleToggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <div className="">
-        <Link
-          href="/Shop"
-          className="inline-flex items-center text-black-300 hover:text-white hover:bg-black px-3 py-2 rounded-md text-sm font-medium group"
-        >
+        <div className="inline-flex items-center text-black-300 hover:text-white hover:bg-black px-3 py-2 rounded-md text-sm font-medium group">
           <FaBath className="mr-2" />
-          Bath Support <FaCaretDown />
-          <div className="w-full absolute  z-50 top-full left-0 transform rounded-md justify-center items-center p-2 group-hover:flex hidden border-teal-500 ">
+          Bath Support 
+          <button onClick={handleToggleDropdown} className="ml-2">
+            <FaPlus />
+          </button>
+          <div
+            ref={dropdownRef}
+            className={`w-full absolute z-50 top-full left-0 transform rounded-md justify-center items-center p-2 ${
+              isDropdownOpen ? "flex" : "hidden"
+            } group-hover:flex border-teal-500`}
+          >
             <div className="flex flex-wrap justify-between bg-[#fff] text-black w-full whitespace-nowrap">
               <div className="w-full md:w-1/4 px-4">
                 <h5 className="text-xl uppercase">Towels | Bathmats</h5>
@@ -50,7 +75,7 @@ const BathSupport = () => {
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       </div>
     </>
   );

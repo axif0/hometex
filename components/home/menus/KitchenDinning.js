@@ -1,10 +1,32 @@
 import Link from "next/link";
-import { useState } from "react";
-import { FaCaretDown } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
+import { FaPlus } from "react-icons/fa";
 
 import { TbToolsKitchen2 } from "react-icons/tb";
 
 const KitchenDinning = () => {
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const handleToggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
   return (
     <>
       <div>
@@ -13,7 +35,10 @@ const KitchenDinning = () => {
           className="inline-flex items-center text-black-300 hover:text-white hover:bg-black px-3 py-2 rounded-md text-sm font-medium group"
         >
           <TbToolsKitchen2 className="mr-2" />
-          Kitchen | Dining <FaCaretDown />
+          Kitchen | Dining 
+          <button onClick={handleToggleDropdown} className="ml-2">
+            <FaPlus />
+          </button>
           <div
             className="w-full absolute  z-50 top-full left-0 transform rounded-md justify-center items-center p-2 group-hover:flex hidden border-teal-500"
             style={{ margin: "auto", left: 0, right: 0 }}
