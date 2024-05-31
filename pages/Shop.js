@@ -348,7 +348,7 @@ const Shop = () => {
                       ></button>
                     )
                   )}
-                </div>
+                </div> 
               </div>
             )}
           </div>

@@ -6,7 +6,7 @@ import RecentView from "@/components/home/sticky/RecentView";
 import Constants from "@/ults/Constant";
 import { CiStar } from "react-icons/ci";
 import DisclaimerModal from "@/pages/DisclaimerModal";
-
+import './Callnow.module.css'
 import {
   FaShoppingBasket,
   FaDownload,
@@ -21,6 +21,7 @@ import Link from "next/link";
 import { useRouter } from 'next/router'; // Import useRouter
 import { Router, useRouter as useRouterClient } from 'next/router'; // Import Router and useRouterClient
 import CustomerSatisfactionBar from "@/components/CustomerSatisfactionBar";
+import ProductGroup from "@/components/FreqDiscount";
 
 export async function getServerSideProps(context) {
   let id = context.query.id;
@@ -546,28 +547,19 @@ const Product = ({ product }) => {
               <button className="text-xl font-bold">Find in Store</button>
             </div>
             <div className="relative">
-            <div className="text-lg font-semibold mb-2">
-        Have a Question in Mind?  
-   
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-      >
-        
-        Connect Us 
-      </button>
-      {isOpen && (
-        <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md">
-          <a href="#" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
-            Call Now
-          </a>
-          <a href="#" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
-            Chat Us
-          </a>
-        </div>
-        
-      )}
-         </div>
+            <div class="question-section">
+  <div class="question-header">
+    Have a Question in Mind?
+  </div>
+  <div class="button-group">
+    <a href="#" class="button call-now">Call Now</a>
+    <a href="#" class="button chat-us">Chat Us</a>
+  </div>
+</div>
+
+
+
+
     </div>
 
             <div className="flex flex-col items-center border p-4 rounded-lg md:flex-row md:items-start">
@@ -666,29 +658,8 @@ const Product = ({ product }) => {
       className="w-full h-auto"
     />
   </div>
-  <div className="md:w-1/2">
-    <h1 className="text-xl font-bold mb-2">Frequently bought together</h1>
-    <div className="flex items-center mb-2">
-      <input type="checkbox" checked readOnly className="mr-2" />
-      <span className="font-semibold">
-        This Item: {product.name} ({product.volume})
-      </span>
-      <span className="line-through ml-2">৳ {product.original_price}</span>
-      <span className="text-red-500 ml-2">৳ {product.discounted_price}</span>
-    </div>
-    <div className="flex items-center mb-2">
-      <input type="checkbox" checked readOnly className="mr-2" />
-      <span className="font-semibold">
-        Rajkonna Acne Fighting Facial Wash With Jojoba Beads (100 ml)
-      </span>
-      <span className="line-through ml-2">৳ 185.00</span>
-      <span className="text-red-500 ml-2">৳ 157.00</span>
-    </div>
-    <div className="flex items-center mb-2">
-      <span className="text-lg font-bold">Total price: ৳ 256</span>
-    </div>
-    <button className="bg-pink-500 text-white px-3 py-1 rounded">ADD BOTH TO CART</button>
-  </div>
+      <ProductGroup product={product} />
+ 
 </div>
 <CustomerSatisfactionBar/>
     </>

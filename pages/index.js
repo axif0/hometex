@@ -22,6 +22,7 @@ import ProductsTabs from "@/components/home/ProductsTabs";
 import ChatPopup from "@/components/ChatPopup";
 import CashbackPopup from "@/components/CashbackPopup";
 import CookiesPopup from "@/components/CookiesPopup";
+import PromoBanner from "@/components/home/PromoBanner";
 
 const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -80,7 +81,9 @@ const Home = () => {
 
   return (
     <>
+      <PromoBanner/>
       <MainSlider />
+     
       
       {isVisible && (
         <>
