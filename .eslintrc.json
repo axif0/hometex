@@ -1,3 +1,4 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["plugin:@next/next", "plugin:@next/next/recommended"],
+  "plugins": ["@next"]
 }
