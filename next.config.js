@@ -7,6 +7,7 @@ const nextConfig = {
     // Disables ESLint during builds
     ignoreDuringBuilds: true,
   },
+  pageExtensions: ['jsx', 'ts', 'tsx', 'md'], // Add this line
 };
 
 module.exports = nextConfig;
