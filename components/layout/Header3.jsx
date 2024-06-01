@@ -13,7 +13,7 @@ import BathSupport from '../home/menus/BathSupport';
 import Bedding from '../home/menus/Bedding';
 import KitchenDinning from '../home/menus/KitchenDinning';
 import LivingDecor from '../home/menus/LivingDecor';
-import DynamicText, { textOptions } from './DynamicText';
+// import DynamicText, { textOptions } from './DynamicText';
 import Modal from "./Modal";
 import SearchBarPopup from "./searchPopup";
 import LoginPopup from "./LoginPopup";
@@ -347,12 +347,12 @@ let auth_token = getCookie("home_text_token");
     setSubMenuOpen((prev) => ({ ...prev, [menuKey]: !prev[menuKey] }));
   };
 
-  const [visitUsText, setVisitUsText] = useState(
-    textOptions ? textOptions[0].visitUs : ""
-  );
-  const handleTextChange = (newVisitUsText) => {
-    setVisitUsText(newVisitUsText);
-  };
+  // const [visitUsText, setVisitUsText] = useState(
+  //   textOptions ? textOptions[0].visitUs : ""
+  // );
+  // const handleTextChange = (newVisitUsText) => {
+  //   setVisitUsText(newVisitUsText);
+  // };
 
   const handleGetLocation = () => {
     if (navigator.geolocation) {
@@ -418,14 +418,14 @@ useEffect(() => {
                                 border-0 rounded-lg shadow-md
                                 transition-all duration-300 ease-in-out"
                 >
-                  {visitUsText}
+                  {/* {visitUsText} */}
                 </span>
                 <div
                   className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500
                                 hover:from-blue-500 hover:to-green-400
                                 transition-all duration-300 ease-in-out"
                 >
-                  <DynamicText onTextChange={handleTextChange} />
+                  {/* <DynamicText onTextChange={handleTextChange} /> */}
                 </div>
               </div>
 
